@@ -71,9 +71,18 @@ def crear_producto(producto: dict):
     productos.append(producto)
     return producto
 
+#Actualizar un producto existente
+@app.put("/productos/{producto_id}")
+def actualizar_producto(producto_id: int, producto_actualizado: dict):
+    for index, producto in enumerate(productos):
+        if producto["id"] == producto_id:
+            productos[index] = {**producto, **producto_actualizado}
+            return productos[index]
+    return {"error": "Producto no encontrado"}
+
+
+
 # Eliminar un producto
-
-
 @app.delete("/productos/{producto_id}")
 def eliminar_producto(producto_id: int):
     global productos
